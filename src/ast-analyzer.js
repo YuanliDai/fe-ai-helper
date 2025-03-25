@@ -23,6 +23,12 @@ async function analyzeDeps(projectPath) {
                 if(!source.startsWith('.')) {
                     usedDeps.add(source.split('/')[0]);
                 }
+            },
+            CallExpression(path) {
+                if(path.node.callee.name === 'require') {
+                    const pkg = path.node.arguments[0].value;
+                    usedDeps.add(pkg.split('/')[0])
+                }
             }
         })
     }

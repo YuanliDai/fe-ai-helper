@@ -30,11 +30,21 @@ describe('Dependency Analysis', () => {
         fs.rmSync(projectPath, { recursive: true });
     })
 
-    test('Should detect unused loadsh', async() => {
+    test('Should detect unused loadsh based on import', async() => {
         projectPath = createTestProject([
             ['index.js', 'import React from "react";\nconsole.log("Hello");']
         ])
 
+
+    const result = await analyzeDeps(projectPath)
+    expect(result.unusedDeps).toContain('lodash');
+    expect(result.unusedDeps).not.toContain('react');
+    });
+
+    test('Should detect unused loadsh based on require', async() => {
+        projectPath = createTestProject([
+            ['index.js', 'const React = require("react");\nconsole.log("Hello");']
+        ])
 
     const result = await analyzeDeps(projectPath)
     expect(result.unusedDeps).toContain('lodash');
