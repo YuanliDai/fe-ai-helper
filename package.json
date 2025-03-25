@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "A ai tool for building automatic efficient frontend projects",
   "main": "index.js",
+  "bin": {
+    "fe-ai": "./src/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js analyze-deps",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +20,9 @@
     "commander": "^13.1.0",
     "depcheck": "^1.4.7",
     "fast-glob": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "jest": "^29.7.0"
   }
 }
